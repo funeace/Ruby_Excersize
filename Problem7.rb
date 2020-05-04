@@ -10,7 +10,6 @@
 prime = 0
 count = 0
 current_num = 0
-prime_bool = 0
 
 # 素数か判定するためのメソッド
 def prime?(num)
@@ -24,7 +23,7 @@ def prime?(num)
 end
 
 # 素数のカウントが10001まで続く
-until count == 10001
+until count > 10001
   # 現在の数が素数かどうか判定する処理
   if prime?(current_num)
     count += 1

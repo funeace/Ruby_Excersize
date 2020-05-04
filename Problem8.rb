@@ -35,8 +35,8 @@ final_result = 0
 
   # 最大となる値を出力
   calc_num.length.times do |i|
-    calc_num[i..i+13]
-    result = calc_num[i..i+13].inject(1) { |result, item| result * item }
+    calc_num[i..i+12]
+    result = calc_num[i..i+12].inject(1) { |result, item| result * item }
     if result > final_result
       final_result = result
     end
