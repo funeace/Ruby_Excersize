@@ -5,7 +5,6 @@
 # 上下の計算方法 numbers[0][0]~numbers[3][0]のようにしたいので、transposeを使って左右に変換する
 
 
-
 numbers = []
 result = []
 init = 
@@ -55,10 +54,8 @@ numbers.each.with_index do |row, i|
   row.each.with_index do |number, j|
     if i <= 16 && j <= 16
       4.times do |k|
-        # p diag
         diag = numbers[i + k][j + k] * diag
       end
-      # p diag
       result.push(diag)
 
       # 初期化
@@ -72,10 +69,8 @@ numbers.each.with_index do |row, i|
   row.each.with_index do |number, j|
     if i <= 16 && j >= 3
       4.times do |k|
-        # p diag
         diag = numbers[i + k][j - k] * diag
       end
-      # p diag
       result.push(diag)
 
       # 初期化
