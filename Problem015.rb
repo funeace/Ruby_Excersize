@@ -6,4 +6,4 @@
 denominator =  (2..40).inject(1){|result,item| result * item}
 molecule = (2..20).inject(1){|result,item| result * item}
 
-p denominator / (molecule * molecule)
+p denominator / (molecule ** 2)
