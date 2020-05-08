@@ -8,12 +8,11 @@ prime = []
 result = 0
 
 until numbers.empty?
+  result = result + numbers[0]
   numbers = numbers.reject{|n| n % numbers[0] == 0 }
-  result = result + numbers[0] 
 end
 
 p result
-
 
 # モジュール版
 # require 'prime'
