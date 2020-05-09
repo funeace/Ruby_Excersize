@@ -33,7 +33,7 @@ def number_division(number)
 end
 
 until number_division(num) >= 500
-  number_division(num)
+  p number_division(num)
   result = triangle_number(num)
   num += 1
 end

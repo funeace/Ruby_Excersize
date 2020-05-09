@@ -1,55 +1,51 @@
-# 以下の三角形の頂点から下の行の隣接する数字を通って下まで移動するとき, その数値の和の最大値は23になる.
-# 3
-# 7 4
-# 2 4 6
-# 8 5 9 3
-# この例では 3 + 7 + 4 + 9 = 23.
-# 以下の三角形を頂点から下まで移動するとき, その最大の和を求めよ.
-triangle = 
-'3
-7 4
-2 4 6
-8 5 9 3'
+# 1 から 5 までの数字を英単語で書けば one, two, three, four, five であり, 全部で 3 + 3 + 5 + 4 + 4 = 19 の文字が使われている.
+# では 1 から 1000 (one thousand) までの数字をすべて英単語で書けば, 全部で何文字になるか.
+# 注: 空白文字やハイフンを数えないこと. 例えば, 342 (three hundred and forty-two) は 23 文字,
+# 115 (one hundred and fifteen) は20文字と数える. なお, "and" を使用するのは英国の慣習.
 
-# '75
-# 95 64
-# 17 47 82
-# 18 35 87 10
-# 20 04 82 47 65
-# 19 01 23 75 03 34
-# 88 02 77 73 07 63 67
-# 99 65 04 28 06 16 70 92
-# 41 41 26 56 83 40 80 70 33
-# 41 48 72 33 47 32 37 16 94 29
-# 53 71 44 65 25 43 91 52 97 51 14
-# 70 11 33 28 77 73 17 78 39 68 17 57
-# 91 71 52 38 17 14 91 43 58 50 27 29 48
-# 63 66 04 68 89 53 67 30 73 16 69 87 40 31
-# 04 62 98 27 23 09 70 98 73 93 38 53 60 04 23'
-
-place = 0
-answer = 0
-
-routes = triangle.each_line.map do |num|
-          num.gsub(/[\r\n]/,"").split(" ").map(&:to_i)
-       end
+@numbers = { 1 => "one", 2 => "two", 3 => "three", 4 => "four", 5 => "five", 6 => "six", 7 => "seven", 8 => "eight", 9 => "nine", 10 => "ten",
+           11 => "eleven", 12 => "twelve", 13 => "thirteen", 14 => "fourteen", 15 => "fifteen", 16 => "sixteen", 17 => "seventeen", 18 => "eighteen", 19 => "nineteen",
+           20 => "twenty", 30 => "thirty", 40 => "forty", 50 => "fifty", 60 => "sixty", 70 => "seventy", 80 => "eighty", 90 => "ninety", 100 => "hundred", 1000 => "onethousand"}
 
 
-# このメソッドは配列の場所を返す（期待値）( +1 -1 0 )
-def routes_check(a = 0, b = 0)
-  if a > b
-    return 0
-  else
-    return 1
+# 100以上であったら20以上の数字を分解し、数字をにするメソッド
+# ３桁に揃える必要がある
+def making_word(num)
+  resolve_num = num.to_s.rjust(4,"0").split("").map(&:to_i)
+  # 1000の位の判定
+  if resolve_num[0] >= 1
+  #   # 331だったら three handred and thirty-one
+    make_thousand_word = @numbers[resolve_num[0]*1000]
   end
+
+  # 100の位の判定
+  if resolve_num[1] >= 1
+  #   # 331だったら three handred and thirty-one
+    make_hundred_word = "#{@numbers[resolve_num[1]]}hundredand"
+
+    if resolve_num[2] == 0 && resolve_num[3] == 0
+      make_hundred_word = "#{@numbers[resolve_num[1]]}hundred"
+    end
+  else
+    make_hundred_word = @numbers[resolve_num[1]]
+  end
+
+  # 10の位の判定
+  if resolve_num[2] >= 2
+    make_ten_word = "#{@numbers[resolve_num[2] * 10]}#{@numbers[resolve_num[3]]}"
+  else
+    make_ten_word = @numbers[resolve_num[2]*10 + resolve_num[3]]
+  end
+
+ return "#{make_thousand_word}#{make_hundred_word}#{make_ten_word}".length
 end
 
-routes.each_with_index do |route, i|
-  if place + 1 > i
-      place = place + routes_check(route[place], 0)
-  else
-      place = place + routes_check(route[place], route[place + 1])
-  end
-  answer = answer + route[place]
+
+result = 0
+
+(1..1000).each do |num|
+  result = result + making_word(num)
 end
-p answer
+
+p result
+# p @numbers
