@@ -2,4 +2,4 @@
 # 各マスには 0 か 1 が書かれており、マス iには siが書かれています。
 # すぬけ君は 1 が書かれたマスにビー玉を置きます。 ビー玉が置かれるマスがいくつあるか求めてください。
 
-p gets.chomp.split("").select{|x|x == "1"}.count
+p gets.chomp.split("").select{|x|x == "1"}.count 
