@@ -25,6 +25,7 @@
 #     answer.each{|ans|puts ans}
 # end
 
+# 今回の敗因：resultのサイズ== データのサイズの判定を思いつかなかった
 
 height,width = gets.chomp.split(" ").map(&:to_i)
 chocolates = (1..height).map{ gets.chomp.split(" ").map(&:to_i) }
