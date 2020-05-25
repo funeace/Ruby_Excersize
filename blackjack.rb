@@ -12,6 +12,9 @@
 
 mark = ["ハート","ダイヤ","クローバー","スペード"]
 card = [1,2,3,4,5,6,7,8,9,10,11,12,13]
+@card_name = {1 => "1", 2 => "2", 3 => "3", 4 => "4", 5 => "5", 6 => "6", 7 => "7", 8 => "8", 9 => "9", 10 => "10", 11 => "J", 12 => "Q", 13 => "K"}
+@card_point = {1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7, 8 => 8, 9 => 9, 10 => 10, 11 => 10, 12 => 10, 13 => 10}
+
 
 @tramp = []
 @user_point = 0
@@ -19,9 +22,9 @@ card = [1,2,3,4,5,6,7,8,9,10,11,12,13]
 
 def blackjack
   now_card = @tramp.sample
-  @user_point += now_card[1]
+  @user_point += @card_point[now_card[1]]
   @tramp.delete_if {|x| x[0] == now_card[0] && x[1] == now_card[1]}
-  puts "あなたの引いたカードは#{now_card[0]}の#{now_card[1]}です"
+  puts "あなたの引いたカードは#{now_card[0]}の#{@card_name[now_card[1]]}です"
   puts "あなたの現在の得点は#{@user_point}です。"
   if @user_point >= 22
     puts "あなたの負け"
@@ -31,16 +34,15 @@ end
 
 def dealer_blackjack
   now_card = @tramp.sample
-  @dealer_point += now_card[1]
+  @dealer_point += @card_point[now_card[1]]
   @tramp.delete_if {|x| x[0] == now_card[0] && x[1] == now_card[1]}
-  puts "ディーラーの引いたカードは#{now_card[0]}の#{now_card[1]}です"
+  puts "ディーラーの引いたカードは#{now_card[0]}の#{@card_name[now_card[1]]}です"
   puts "ディーラーの現在の得点は#{@dealer_point}です。"
   if @dealer_point >= 22
     puts "あなたの勝ち"
     exit
   end
 end
-
 
 # カードの一覧を作る処理
 mark.each do |m|
@@ -51,13 +53,14 @@ end
 
 puts "ゲームを開始します"
 
+# ユーザ側の処理
 loop do
   blackjack
-
   puts "カードをを引きますか？引く場合はY、引かない場合はNを入力してください"
   break if gets.chomp == "N"
 end
 
+# ディーラー側の処理
 while @dealer_point < 17
   dealer_blackjack
 end
